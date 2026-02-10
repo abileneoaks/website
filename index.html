@@ -87,6 +87,12 @@
         image-rendering: -webkit-optimize-contrast;
         transform: translateZ(0);
       }
+
+      /* Logo badge now white, with a subtle border so it remains visible */
+      .logo-badge {
+        background-color: #ffffff;
+        border: 1px solid rgba(139, 90, 43, 0.25);
+      }
     </style>
 
     <style>
@@ -110,11 +116,9 @@
         style="background-color: #fdf8f3"
       >
         <div class="flex items-center gap-3">
-          <!-- OPTION SET: Logo in circular badge (with overflow hidden) -->
-          <!-- If you DON'T want circle cropping, swap this whole div with the "no-crop" option below -->
+          <!-- Logo in circular badge (WHITE background now) -->
           <div
-            class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden"
-            style="background-color: #22573c"
+            class="logo-badge w-12 h-12 rounded-full flex items-center justify-center overflow-hidden"
           >
             <img
               src="AOLogo.png"
@@ -242,7 +246,10 @@
                 </svg>
               </div>
 
-              <div class="absolute bottom-8 left-16 egg-float" style="animation-delay: -1.5s">
+              <div
+                class="absolute bottom-8 left-16 egg-float"
+                style="animation-delay: -1.5s"
+              >
                 <svg width="90" height="110" viewBox="0 0 90 110" fill="none">
                   <ellipse
                     cx="45"
@@ -573,7 +580,7 @@
       <!-- Footer -->
       <footer class="w-full px-6 py-8 text-center" style="background-color: #8b5a2b">
         <div class="flex items-center justify-center gap-3 mb-4">
-          <!-- Footer logo (replaces egg SVG) -->
+          <!-- Footer logo -->
           <img
             src="AOLogo.png"
             alt="Abilene Oaks Farm logo"
@@ -638,10 +645,6 @@
 
         // Update colors
         const bgColor = config.background_color || defaultConfig.background_color;
-        const primaryColor = config.primary_color || defaultConfig.primary_color;
-        const accentColor = config.accent_color || defaultConfig.accent_color;
-        const textColor = config.text_color || defaultConfig.text_color;
-        const surfaceColor = config.surface_color || defaultConfig.surface_color;
 
         document.getElementById("app-wrapper").style.backgroundColor = bgColor;
         document.querySelector("nav").style.backgroundColor = bgColor;
