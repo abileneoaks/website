@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abilene Oaks Farm</title>
+
+  <link rel="icon" type="image/png" href="AOLogo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg: #FBF7F2;         /* warm parchment */
+      --surface: #FFFFFF;    /* cards */
+      --ink: #2E2A26;        /* near-black */
+      --muted: #6A625B;      /* warm gray */
+      --brand: #2F6B4F;      /* evergreen */
+      --brand-2: #B07A3F;    /* oak */
+      --brand-3: #E7D3B6;    /* wheat */
+      --ring: rgba(47,107,79,.28);
+      --border: rgba(176,122,63,0.18);
+      --border-strong: rgba(47,107,79,.35);
+    }
+    body { box-sizing: border-box; }
+    .font-heading { font-family: "Playfair Display", serif; }
+    .font-body { font-family: "Lora", serif; }
+
+    .hero-photo {
+      background-image:
+        linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.42)),
+        url("ChickensBGImage.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .soft-shadow { box-shadow: 0 18px 40px rgba(0,0,0,.12); }
+    .card-hover { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,.10); border-color: rgba(176,122,63,.35); }
+
+    .focus-ring:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
+    img.logo-img { image-rendering: -webkit-optimize-contrast; transform: translateZ(0); }
+
+    .logo-badge {
+      background-color: #ffffff;
+      border: 1px solid rgba(176,122,63,0.25);
+    }
+    .footer-logo-badge{
+      width: 44px; height: 44px; border-radius: 9999px;
+      background: #ffffff; display: inline-flex; align-items: center; justify-content: center;
+      overflow: hidden; border: 1px solid rgba(255,255,255,.45);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .35rem .7rem;
+      border-radius: 9999px;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--brand);
+      background: rgba(47,107,79,.08);
+      border: 1px solid rgba(47,107,79,.22);
+    }
+
+    details[open] summary .chev { transform: rotate(180deg); }
+    summary { list-style: none; cursor: pointer; }
+    summary::-webkit-details-marker { display:none; }
+    .chev { transition: transform .2s ease; }
+
+    .field {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(176,122,63,0.22);
+      background: white;
+      padding: .8rem .95rem;
+      font-size: 1rem;
+      color: var(--ink);
+    }
+    .field:focus { outline: none; box-shadow: 0 0 0 4px var(--ring); border-color: rgba(47,107,79,.4); }
+    .label { font-size: .9rem; font-weight: 600; color: var(--ink); }
+    .help { font-size: .85rem; color: var(--muted); }
+
+    html { scroll-behavior: smooth; }
+  </style>
+
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+
+  <!-- Conversion tracking (optional): Google Analytics 4 -->
+  <!-- 1) Replace G-XXXXXXXXXX with your GA4 Measurement ID. -->
+  <!-- 2) In GA4, track the event name: egg_reservation_submit -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    // Comment out the next two lines if you are not using GA4
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
+</head>
+
+<body class="h-full font-body" style="background: var(--bg); color: var(--ink);">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background-color: var(--bg);">
+
+    <!-- NAV -->
+    <nav class="w-full px-6 py-4 sticky top-0 z-50 backdrop-blur"
+         style="background-color: rgba(251, 247, 242, 0.86); border-bottom: 1px solid var(--border);">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <a href="#top" class="flex items-center gap-3 focus-ring rounded-lg">
+          <div class="logo-badge w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
+            <img src="AOLogo.png" alt="Abilene Oaks Farm logo" class="logo-img w-10 h-10 object-contain" loading="eager" decoding="async" />
+          </div>
+          <span id="nav-title" class="font-heading text-xl font-semibold" style="color: var(--brand-2);">Abilene Oaks Farm</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#about" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">About</a>
+          <a href="#products" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">Eggs</a>
+          <a href="#how" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">How it works</a>
+          <a href="#testimonials" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">Reviews</a>
+          <a href="#faq" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">FAQ</a>
+          <a href="#contact" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">Contact</a>
+        </div>
+
+        <a href="#reserve" class="hidden md:inline-flex items-center px-5 py-2.5 rounded-full font-semibold focus-ring"
+           style="background: var(--brand); color: white;">
+          Reserve
+        </a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="top" class="hero-photo">
+      <div class="px-6 py-16 md:py-24">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div class="inline-block rounded-2xl p-6 md:p-8 soft-shadow"
+                 style="background: rgba(251, 247, 242, 0.92); border: 1px solid var(--border);">
+              <p class="text-sm font-semibold tracking-wide uppercase mb-3" style="color: var(--brand);">
+                Pasture-raised • Local • Small batch
+              </p>
+              <h1 id="hero-title" class="font-heading text-4xl md:text-6xl font-bold leading-tight mb-5" style="color: var(--brand-2);">
+                Abilene Oaks Farm
+              </h1>
+              <p id="hero-tagline" class="text-lg md:text-xl leading-relaxed mb-7" style="color: var(--muted);">
+                Farm-fresh eggs from happy hens — raised with care in Carroll County, Georgia.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a href="#products" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+                   style="background: var(--brand); color: white;">
+                  View egg options
+                </a>
+                <a href="#reserve" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+                   style="background: transparent; color: var(--brand); border: 2px solid rgba(47,107,79,.35);">
+                  Reserve now
+                </a>
+              </div>
+
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="chip">Collected often</span>
+                <span class="chip">Pickup available</span>
+                <span class="chip">Quality-focused</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid gap-5">
+            <div class="rounded-2xl p-6 soft-shadow" style="background: rgba(255,255,255,0.92); border: 1px solid var(--border);">
+              <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--brand-2);">What makes our eggs different</h3>
+              <ul class="space-y-2 text-base" style="color: var(--muted);">
+                <li>• Hens forage outdoors with shade from oaks</li>
+                <li>• Clean, simple feed and fresh water</li>
+                <li>• Small-batch care — consistent quality</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl p-6 soft-shadow" style="background: rgba(255,255,255,0.92); border: 1px solid var(--border);">
+              <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--brand-2);">Weekly availability</h3>
+              <p class="text-base" style="color: var(--muted);">
+                Reserve ahead to secure your preferred quantity. We’ll confirm pickup details by email.
+              </p>
+              <a href="#reserve" class="inline-flex mt-4 px-6 py-2.5 rounded-full font-semibold focus-ring"
+                 style="background: var(--brand); color: white;">
+                Reserve eggs
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="px-6 py-16">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 id="about-title" class="font-heading text-3xl md:text-4xl font-bold mb-4" style="color: var(--brand-2);">
+            Our Story
+          </h2>
+          <p id="about-text" class="text-lg leading-relaxed" style="color: var(--muted);">
+            Nestled in the rolling hills of Carroll County, Georgia, Abilene Oaks Farm is a family-owned operation dedicated to raising healthy hens the old-fashioned way.
+            Our chickens spend their days outdoors, foraging on grass and enjoying the sunshine — resulting in eggs with rich flavor and vibrant yolks.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Care</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Pasture-first</div>
+            <p style="color: var(--muted);">Outdoor access and space to roam, with natural shade and fresh air.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Freshness</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Collected often</div>
+            <p style="color: var(--muted);">Gathered regularly and handled with care for peak quality.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Local</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Carroll County</div>
+            <p style="color: var(--muted);">A small farm focused on our community and neighbors.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Taste</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Golden yolks</div>
+            <p style="color: var(--muted);">A richer flavor you can see and taste in every egg.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="px-6 py-16" style="background: rgba(231,211,182,.22); border-top: 1px solid rgba(176,122,63,0.14); border-bottom: 1px solid rgba(176,122,63,0.14);">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
+          <div>
+            <h2 id="products-title" class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">
+              Egg Options
+            </h2>
+            <p class="mt-2 text-lg" style="color: var(--muted);">Simple pricing. Reserve ahead for the best availability.</p>
+          </div>
+          <a href="#reserve" class="inline-flex px-6 py-3 rounded-full font-semibold focus-ring" style="background: var(--brand); color: white;">
+            Reserve eggs
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl p-7 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Starter</div>
+            <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">One dozen</h3>
+            <p class="mb-5" style="color: var(--muted);">Perfect for small households or first-time customers.</p>
+            <div class="font-heading text-3xl font-bold" style="color: var(--brand);">$6</div>
+            <div class="mt-5">
+              <a href="#reserve" class="inline-flex w-full justify-center px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: rgba(47,107,79,.08); color: var(--brand); border: 1px solid rgba(47,107,79,.25);">
+                Reserve
+              </a>
+            </div>
+          </div>
+
+          <div class="rounded-2xl p-7 card-hover relative soft-shadow" style="background: var(--surface); border: 2px solid var(--border-strong);">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-semibold tracking-wide"
+                 style="background: var(--brand); color: white;">
+              Most popular
+            </div>
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Value</div>
+            <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Two dozen</h3>
+            <p class="mb-5" style="color: var(--muted);">Best fit for regular egg lovers and families.</p>
+            <div class="font-heading text-3xl font-bold" style="color: var(--brand);">$11</div>
+            <div class="mt-5">
+              <a href="#reserve" class="inline-flex w-full justify-center px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: var(--brand); color: white;">
+                Reserve
+              </a>
+            </div>
+          </div>
+
+          <div class="rounded-2xl p-7 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Best value</div>
+            <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Flat (2.5 dozen)</h3>
+            <p class="mb-5" style="color: var(--muted);">Ideal for bakers, meal prep, and larger households.</p>
+            <div class="font-heading text-3xl font-bold" style="color: var(--brand);">$13</div>
+            <div class="mt-5">
+              <a href="#reserve" class="inline-flex w-full justify-center px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: rgba(47,107,79,.08); color: var(--brand); border: 1px solid rgba(47,107,79,.25);">
+                Reserve
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="px-6 py-16">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold mb-8" style="color: var(--brand-2);">How it works</h2>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: rgba(47,107,79,.10); color: var(--brand); font-weight: 700;">1</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Reserve</div>
+            <p style="color: var(--muted);">Submit the form below with quantity and pickup preference.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: rgba(47,107,79,.10); color: var(--brand); font-weight: 700;">2</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Confirm</div>
+            <p style="color: var(--muted);">We’ll reply by email to confirm availability and pickup details.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: rgba(47,107,79,.10); color: var(--brand); font-weight: 700;">3</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Pickup</div>
+            <p style="color: var(--muted);">Pick up your eggs at the farm at the agreed time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="px-6 py-16" style="background: rgba(231,211,182,.14); border-top: 1px solid rgba(176,122,63,0.12); border-bottom: 1px solid rgba(176,122,63,0.12);">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">From our customers</h2>
+        <p class="mt-2 text-lg" style="color: var(--muted);">A few notes we’ve heard from neighbors and repeat customers.</p>
+
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
+          <figure class="rounded-2xl p-7 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-3" style="color: var(--brand);">Repeat customer</div>
+            <blockquote class="text-lg leading-relaxed" style="color: var(--ink);">
+              “The yolks are noticeably richer, and the shells feel sturdier. We won’t go back.”
+            </blockquote>
+            <figcaption class="mt-5 text-sm" style="color: var(--muted);">— Local family in Carroll County</figcaption>
+          </figure>
+
+          <figure class="rounded-2xl p-7 card-hover soft-shadow" style="background: var(--surface); border: 2px solid rgba(47,107,79,.28);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-3" style="color: var(--brand);">Baker’s pick</div>
+            <blockquote class="text-lg leading-relaxed" style="color: var(--ink);">
+              “Perfect for baking — consistent results every time. Easy pickup and friendly folks.”
+            </blockquote>
+            <figcaption class="mt-5 text-sm" style="color: var(--muted);">— Home baker</figcaption>
+          </figure>
+
+          <figure class="rounded-2xl p-7 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-3" style="color: var(--brand);">Freshness</div>
+            <blockquote class="text-lg leading-relaxed" style="color: var(--ink);">
+              “You can taste the difference. I love knowing exactly where my food comes from.”
+            </blockquote>
+            <figcaption class="mt-5 text-sm" style="color: var(--muted);">— Nearby neighbor</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="px-6 py-16">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">FAQ</h2>
+        <p class="mt-2 text-lg" style="color: var(--muted);">Quick answers to the most common questions.</p>
+
+        <div class="mt-8 grid lg:grid-cols-2 gap-6">
+          <details class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <summary class="flex items-center justify-between">
+              <span class="font-heading text-lg font-semibold" style="color: var(--ink);">Where are you located?</span>
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted);" />
+              </svg>
+            </summary>
+            <div class="mt-3" style="color: var(--muted);">
+              We’re in Carroll County, Georgia. Pickup details are shared after you reserve.
+            </div>
+          </details>
+
+          <details class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <summary class="flex items-center justify-between">
+              <span class="font-heading text-lg font-semibold" style="color: var(--ink);">Do I need to reserve ahead?</span>
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted);" />
+              </svg>
+            </summary>
+            <div class="mt-3" style="color: var(--muted);">
+              It’s recommended. Reservations guarantee your quantity.
+            </div>
+          </details>
+
+          <details class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <summary class="flex items-center justify-between">
+              <span class="font-heading text-lg font-semibold" style="color: var(--ink);">How fresh are the eggs?</span>
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted);" />
+              </svg>
+            </summary>
+            <div class="mt-3" style="color: var(--muted);">
+              We collect often and store properly. If you want the very newest, mention it in the form.
+            </div>
+          </details>
+
+          <details class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <summary class="flex items-center justify-between">
+              <span class="font-heading text-lg font-semibold" style="color: var(--ink);">Do you offer delivery?</span>
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted);" />
+              </svg>
+            </summary>
+            <div class="mt-3" style="color: var(--muted);">
+              Pickup is the standard option. For special cases, reach out and we’ll see what’s possible.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT + NETLIFY FORM -->
+    <section id="contact" class="px-6 py-16" style="background: var(--brand);">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+          <div>
+            <h2 id="contact-title" class="font-heading text-3xl md:text-4xl font-bold mb-4" style="color: white;">Contact & Reservations</h2>
+            <p class="text-lg leading-relaxed" style="color: rgba(255,255,255,.88);">
+              Submit a reservation below and we’ll reply by email to confirm.
+            </p>
+
+            <div class="mt-8 grid sm:grid-cols-2 gap-6">
+              <div class="rounded-2xl p-6" style="background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);">
+                <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: rgba(255,255,255,.85);">Location</div>
+                <div id="location-text" class="text-base" style="color: white;">Carroll County, Georgia</div>
+              </div>
+              <div class="rounded-2xl p-6" style="background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);">
+                <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: rgba(255,255,255,.85);">Email</div>
+                <a href="mailto:hello@abileneoaks.com" class="focus-ring rounded-lg inline-block" style="color: white; font-weight: 600; text-decoration: none;">
+                  hello@abileneoaks.com
+                </a>
+              </div>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="https://www.facebook.com/p/Abilene-Oaks-Farm-61577269757024/" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: rgba(255,255,255,.14); color: white; border: 1px solid rgba(255,255,255,.22);">
+                Facebook
+              </a>
+              <a href="https://www.instagram.com/abileneoaksfarm/" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: rgba(255,255,255,.14); color: white; border: 1px solid rgba(255,255,255,.22);">
+                Instagram
+              </a>
+            </div>
+          </div>
+
+          <div id="reserve" class="rounded-2xl p-8 md:p-10 soft-shadow" style="background: rgba(251,247,242,0.96); border: 1px solid rgba(176,122,63,0.18);">
+            <h3 class="font-heading text-2xl font-semibold mb-2" style="color: var(--brand-2);">Reserve eggs</h3>
+            <p class="mb-6" style="color: var(--muted);">This form submits directly to Netlify/Nellify and captures entries in your dashboard.</p>
+
+            <!--
+              NETLIFY FORMS:
+              - data-netlify="true" enables capture
+              - name="" identifies the form in the dashboard
+              - netlify-honeypot blocks basic spam bots
+              - data-netlify-recaptcha="true" enables spam protection (enable reCAPTCHA in the dashboard)
+            -->
+            <form name="egg-reservations"
+                  method="POST"
+                  data-netlify="true"
+                  netlify-honeypot="bot-field"
+                  data-netlify-recaptcha="true"
+                  class="grid gap-4">
+
+              <!-- Required hidden input for Netlify -->
+              <input type="hidden" name="form-name" value="egg-reservations" />
+
+              <!-- Honeypot field (hidden) -->
+              <p class="hidden">
+                <label>Don’t fill this out: <input name="bot-field" /></label>
+              </p>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="label" for="name">Name</label>
+                  <input class="field" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
+                </div>
+                <div>
+                  <label class="label" for="email">Email</label>
+                  <input class="field" id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="label" for="quantity">Quantity</label>
+                  <select class="field" id="quantity" name="quantity" required>
+                    <option value="1 dozen">1 dozen</option>
+                    <option value="2 dozen" selected>2 dozen</option>
+                    <option value="Flat (2.5 dozen)">Flat (2.5 dozen)</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <p class="help mt-1">Choose an option, or select “Other” and specify below.</p>
+                </div>
+                <div>
+                  <label class="label" for="pickup">Preferred pickup day</label>
+                  <select class="field" id="pickup" name="pickup" required>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday" selected>Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                    <option value="Weekday">Weekday</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="label" for="other_quantity">If “Other”, specify (optional)</label>
+                <input class="field" id="other_quantity" name="other_quantity" type="text" placeholder="e.g., 3 dozen" />
+              </div>
+
+              <div>
+                <label class="label" for="notes">Notes (optional)</label>
+                <textarea class="field" id="notes" name="notes" rows="4" placeholder="Anything we should know? (e.g., 'weekly reserve', 'newest eggs')"></textarea>
+              </div>
+
+              <!-- reCAPTCHA placeholder (Netlify will render it) -->
+              <div data-netlify-recaptcha="true"></div>
+
+              <button type="submit" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+                      style="background: var(--brand); color: white;">
+                Submit reservation
+              </button>
+
+              <!-- Inline submit feedback -->
+              <div id="formStatus" class="hidden mt-4 rounded-2xl p-4" style="border: 1px solid rgba(47,107,79,.22); background: rgba(47,107,79,.08);">
+                <div class="font-heading text-lg font-semibold" style="color: var(--brand);">Thank you — we received your reservation.</div>
+                <div class="mt-1 text-sm" style="color: var(--muted);">We’ll reply within 24 hours to confirm availability and pickup details.</div>
+              </div>
+              <div id="formError" class="hidden mt-4 rounded-2xl p-4" style="border: 1px solid rgba(176,0,0,.22); background: rgba(176,0,0,.08);">
+                <div class="font-heading text-lg font-semibold" style="color: #8B0000;">Hmm — something went wrong.</div>
+                <div class="mt-1 text-sm" style="color: var(--muted);">Please try again, or email <a href="mailto:hello@abileneoaks.com" class="underline">hello@abileneoaks.com</a>.</div>
+              </div>
+
+              <p class="text-xs" style="color: rgba(106,98,91,.95);">
+                We’ll reply within 24 hours to confirm availability and pickup details.
+              </p>
+            </form>
+
+            <div class="mt-5 text-xs" style="color: rgba(106,98,91,.92);">
+              Tip: In Netlify/Nellify, enable reCAPTCHA for Forms to activate the spam protection.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="px-6 py-10 text-center" style="background: #1F4D38;">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <span class="footer-logo-badge" aria-hidden="true">
+            <img src="AOLogo.png" alt="Abilene Oaks Farm logo" class="logo-img w-9 h-9 object-contain" loading="lazy" decoding="async" />
+          </span>
+          <span class="font-heading text-xl font-semibold" style="color: white;">Abilene Oaks Farm</span>
+        </div>
+        <p id="footer-text" class="text-sm" style="color: rgba(255,255,255,.78);">
+          © 2024 Abilene Oaks Farm • Carroll County, Georgia • Farm fresh eggs, raised with care
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Element SDK (kept)
+    const defaultConfig = {
+      farm_name: "Abilene Oaks Farm",
+      tagline: "Farm-fresh eggs from happy hens — raised with care in Carroll County, Georgia.",
+      about_title: "Our Story",
+      about_text:
+        "Nestled in the rolling hills of Carroll County, Georgia, Abilene Oaks Farm is a family-owned operation dedicated to raising healthy hens the old-fashioned way. Our chickens spend their days outdoors, foraging on grass and enjoying the sunshine — resulting in eggs with rich flavor and vibrant yolks.",
+      products_title: "Egg Options",
+      contact_title: "Contact & Reservations",
+      location_text: "Carroll County, Georgia",
+      footer_text: "© 2024 Abilene Oaks Farm • Carroll County, Georgia • Farm fresh eggs, raised with care",
+      background_color: "#FBF7F2",
+      primary_color: "#2F6B4F",
+      accent_color: "#B07A3F",
+      text_color: "#2E2A26",
+      surface_color: "#FFFFFF",
+      font_family: "Playfair Display",
+      font_size: 16,
+    };
+
+    async function onConfigChange(config) {
+      document.getElementById("nav-title").textContent = config.farm_name || defaultConfig.farm_name;
+      document.getElementById("hero-title").textContent = config.farm_name || defaultConfig.farm_name;
+      document.getElementById("hero-tagline").textContent = config.tagline || defaultConfig.tagline;
+
+      document.getElementById("about-title").textContent = config.about_title || defaultConfig.about_title;
+      document.getElementById("about-text").textContent = config.about_text || defaultConfig.about_text;
+
+      document.getElementById("products-title").textContent = config.products_title || defaultConfig.products_title;
+
+      document.getElementById("contact-title").textContent = config.contact_title || defaultConfig.contact_title;
+      document.getElementById("location-text").textContent = config.location_text || defaultConfig.location_text;
+
+      document.getElementById("footer-text").textContent = config.footer_text || defaultConfig.footer_text;
+
+      const bgColor = config.background_color || defaultConfig.background_color;
+      document.getElementById("app-wrapper").style.backgroundColor = bgColor;
+
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      const baseFontStack = "serif";
+      document.querySelectorAll(".font-heading").forEach((el) => {
+        el.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+      });
+
+      const baseSize = config.font_size || defaultConfig.font_size;
+      document.getElementById("hero-title").style.fontSize = `${baseSize * 3}px`;
+      document.getElementById("hero-tagline").style.fontSize = `${baseSize * 1.25}px`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); } },
+          { get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); } },
+          { get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); } },
+          { get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); } },
+          { get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => { config.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); } },
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); },
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); },
+        },
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["farm_name", config.farm_name || defaultConfig.farm_name],
+        ["tagline", config.tagline || defaultConfig.tagline],
+        ["about_title", config.about_title || defaultConfig.about_title],
+        ["about_text", config.about_text || defaultConfig.about_text],
+        ["products_title", config.products_title || defaultConfig.products_title],
+        ["contact_title", config.contact_title || defaultConfig.contact_title],
+        ["location_text", config.location_text || defaultConfig.location_text],
+        ["footer_text", config.footer_text || defaultConfig.footer_text],
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities, mapToEditPanelValues });
+    }
+  </script>
+
+  <script>
+    // Inline Netlify Forms submission (no redirect)
+    // This keeps Netlify form capture while showing an inline success message.
+    (function () {
+      const form = document.querySelector('form[name="egg-reservations"]');
+      if (!form) return;
+
+      const statusEl = document.getElementById('formStatus');
+      const errorEl = document.getElementById('formError');
+
+      function show(el) { if (el) el.classList.remove('hidden'); }
+      function hide(el) { if (el) el.classList.add('hidden'); }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        hide(statusEl);
+        hide(errorEl);
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn ? submitBtn.textContent : null;
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting...';
+        }
+
+        try {
+          const formData = new FormData(form);
+
+          // Netlify expects URL-encoded payload
+          const params = new URLSearchParams();
+          for (const [key, value] of formData.entries()) {
+            params.append(key, value.toString());
+          }
+
+          const resp = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params.toString()
+          });
+
+          if (!resp.ok) throw new Error('Non-200 response');
+
+          // Success UI
+          show(statusEl);
+          form.reset();
+
+          // Conversion tracking event (GA4)
+          // View weekly counts in GA4: Reports → Engagement → Events (filter egg_reservation_submit)
+          // or Explore for weekly trends.
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'egg_reservation_submit', {
+              event_category: 'forms',
+              event_label: 'egg-reservations'
+            });
+          }
+
+        } catch (err) {
+          show(errorEl);
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText || 'Submit reservation';
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
