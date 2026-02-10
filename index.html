@@ -15,7 +15,6 @@
 
   <style>
     :root{
-      /* Branded palette */
       --bg: #FBF7F2;         /* warm parchment */
       --surface: #FFFFFF;    /* cards */
       --ink: #2E2A26;        /* near-black */
@@ -31,7 +30,6 @@
     .font-heading { font-family: "Playfair Display", serif; }
     .font-body { font-family: "Lora", serif; }
 
-    /* Hero background photo with subtle overlay */
     .hero-photo {
       background-image:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.42)),
@@ -58,7 +56,6 @@
       overflow: hidden; border: 1px solid rgba(255,255,255,.45);
     }
 
-    /* Small “pill” chips */
     .chip {
       display: inline-flex;
       align-items: center;
@@ -72,13 +69,11 @@
       border: 1px solid rgba(47,107,79,.22);
     }
 
-    /* FAQ accordion (native details/summary + subtle motion) */
     details[open] summary .chev { transform: rotate(180deg); }
     summary { list-style: none; cursor: pointer; }
     summary::-webkit-details-marker { display:none; }
     .chev { transition: transform .2s ease; }
 
-    /* Form inputs */
     .field {
       width: 100%;
       border-radius: 14px;
@@ -92,7 +87,6 @@
     .label { font-size: .9rem; font-weight: 600; color: var(--ink); }
     .help { font-size: .85rem; color: var(--muted); }
 
-    /* Smooth anchor */
     html { scroll-behavior: smooth; }
   </style>
 
@@ -158,20 +152,19 @@
               </div>
 
               <div class="mt-6 flex flex-wrap gap-2">
-                <span class="chip">Collected daily</span>
+                <span class="chip">Collected often</span>
                 <span class="chip">Pickup available</span>
                 <span class="chip">Quality-focused</span>
               </div>
             </div>
           </div>
 
-          <!-- Right: value cards -->
           <div class="grid gap-5">
             <div class="rounded-2xl p-6 soft-shadow" style="background: rgba(255,255,255,0.92); border: 1px solid var(--border);">
               <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--brand-2);">What makes our eggs different</h3>
               <ul class="space-y-2 text-base" style="color: var(--muted);">
                 <li>• Hens forage outdoors with shade from oaks</li>
-                <li>• Organic feed and fresh water</li>
+                <li>• Clean, simple feed and fresh water</li>
                 <li>• Small-batch care — consistent quality</li>
               </ul>
             </div>
@@ -212,7 +205,7 @@
           <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
             <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Freshness</div>
             <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Collected often</div>
-            <p style="color: var(--muted);">Gathered daily and handled with care for peak quality.</p>
+            <p style="color: var(--muted);">Gathered regularly and handled with care for peak quality.</p>
           </div>
           <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
             <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Local</div>
@@ -287,20 +280,6 @@
             </div>
           </div>
         </div>
-
-        <div class="mt-10 rounded-2xl p-6 md:p-7" style="background: rgba(255,255,255,.7); border: 1px solid rgba(176,122,63,0.16);">
-          <div class="grid md:grid-cols-3 gap-6 items-center">
-            <div class="md:col-span-2">
-              <div class="font-heading text-2xl font-semibold" style="color: var(--ink);">Want a recurring weekly reserve?</div>
-              <p class="mt-1" style="color: var(--muted);">Tell us your usual quantity and preferred pickup day. We’ll do our best to keep it consistent week to week.</p>
-            </div>
-            <div class="md:text-right">
-              <a href="#reserve" class="inline-flex px-6 py-3 rounded-full font-semibold focus-ring" style="background: var(--brand); color: white;">
-                Set up weekly reserve
-              </a>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -313,17 +292,17 @@
           <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
             <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: rgba(47,107,79,.10); color: var(--brand); font-weight: 700;">1</div>
             <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Reserve</div>
-            <p style="color: var(--muted);">Send a message with the quantity you want. We’ll confirm availability.</p>
+            <p style="color: var(--muted);">Submit the form below with quantity and pickup preference.</p>
           </div>
           <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
             <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: rgba(47,107,79,.10); color: var(--brand); font-weight: 700;">2</div>
-            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Pickup</div>
-            <p style="color: var(--muted);">We’ll coordinate a convenient pickup time at the farm.</p>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Confirm</div>
+            <p style="color: var(--muted);">We’ll reply by email to confirm availability and pickup details.</p>
           </div>
           <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
             <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: rgba(47,107,79,.10); color: var(--brand); font-weight: 700;">3</div>
-            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Enjoy</div>
-            <p style="color: var(--muted);">Fresh eggs for breakfast, baking, and everything in between.</p>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Pickup</div>
+            <p style="color: var(--muted);">Pick up your eggs at the farm at the agreed time.</p>
           </div>
         </div>
       </div>
@@ -332,17 +311,10 @@
     <!-- TESTIMONIALS -->
     <section id="testimonials" class="px-6 py-16" style="background: rgba(231,211,182,.14); border-top: 1px solid rgba(176,122,63,0.12); border-bottom: 1px solid rgba(176,122,63,0.12);">
       <div class="max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
-          <div>
-            <h2 class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">From our customers</h2>
-            <p class="mt-2 text-lg" style="color: var(--muted);">A few notes we’ve heard from neighbors and repeat customers.</p>
-          </div>
-          <a href="#reserve" class="inline-flex px-6 py-3 rounded-full font-semibold focus-ring" style="background: var(--brand); color: white;">
-            Reserve eggs
-          </a>
-        </div>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">From our customers</h2>
+        <p class="mt-2 text-lg" style="color: var(--muted);">A few notes we’ve heard from neighbors and repeat customers.</p>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
           <figure class="rounded-2xl p-7 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
             <div class="text-sm font-semibold uppercase tracking-wide mb-3" style="color: var(--brand);">Repeat customer</div>
             <blockquote class="text-lg leading-relaxed" style="color: var(--ink);">
@@ -367,24 +339,16 @@
             <figcaption class="mt-5 text-sm" style="color: var(--muted);">— Nearby neighbor</figcaption>
           </figure>
         </div>
-
-        <p class="mt-8 text-sm" style="color: var(--muted);">
-          Want us to feature your review? Message us and we’ll add it here.
-        </p>
       </div>
     </section>
 
     <!-- FAQ -->
     <section id="faq" class="px-6 py-16">
       <div class="max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
-          <div>
-            <h2 class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">FAQ</h2>
-            <p class="mt-2 text-lg" style="color: var(--muted);">Quick answers to the most common questions.</p>
-          </div>
-        </div>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">FAQ</h2>
+        <p class="mt-2 text-lg" style="color: var(--muted);">Quick answers to the most common questions.</p>
 
-        <div class="grid lg:grid-cols-2 gap-6">
+        <div class="mt-8 grid lg:grid-cols-2 gap-6">
           <details class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
             <summary class="flex items-center justify-between">
               <span class="font-heading text-lg font-semibold" style="color: var(--ink);">Where are you located?</span>
@@ -393,7 +357,7 @@
               </svg>
             </summary>
             <div class="mt-3" style="color: var(--muted);">
-              We’re in Carroll County, Georgia off Highway 113. Pickup details are shared after you reserve.
+              We’re in Carroll County, Georgia. Pickup details are shared after you reserve.
             </div>
           </details>
 
@@ -405,7 +369,7 @@
               </svg>
             </summary>
             <div class="mt-3" style="color: var(--muted);">
-              It’s recommended. We can often help same-week, but reservations guarantee your quantity.
+              It’s recommended. Reservations guarantee your quantity.
             </div>
           </details>
 
@@ -417,7 +381,7 @@
               </svg>
             </summary>
             <div class="mt-3" style="color: var(--muted);">
-              We collect daily and store properly. If you want the very freshest, mention it when you reserve.
+              We collect often and store properly. If you want the very newest, mention it in the form.
             </div>
           </details>
 
@@ -429,21 +393,21 @@
               </svg>
             </summary>
             <div class="mt-3" style="color: var(--muted);">
-              Pickup is the standard option. For special cases, reach out and we’ll see if we are able to deliver.
+              Pickup is the standard option. For special cases, reach out and we’ll see what’s possible.
             </div>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT + FORM -->
+    <!-- CONTACT + NETLIFY FORM -->
     <section id="contact" class="px-6 py-16" style="background: var(--brand);">
       <div class="max-w-6xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-10 items-start">
           <div>
             <h2 id="contact-title" class="font-heading text-3xl md:text-4xl font-bold mb-4" style="color: white;">Contact & Reservations</h2>
             <p class="text-lg leading-relaxed" style="color: rgba(255,255,255,.88);">
-              Reserve eggs or ask about weekly availability. We’ll reply as soon as we can.
+              Submit a reservation below and we’ll reply by email to confirm.
             </p>
 
             <div class="mt-8 grid sm:grid-cols-2 gap-6">
@@ -475,24 +439,46 @@
 
           <div id="reserve" class="rounded-2xl p-8 md:p-10 soft-shadow" style="background: rgba(251,247,242,0.96); border: 1px solid rgba(176,122,63,0.18);">
             <h3 class="font-heading text-2xl font-semibold mb-2" style="color: var(--brand-2);">Reserve eggs</h3>
-            <p class="mb-6" style="color: var(--muted);">This quick form prepares an email for you. No account needed.</p>
+            <p class="mb-6" style="color: var(--muted);">This form submits directly to Netlify/Nellify and captures entries in your dashboard.</p>
 
-            <form id="reserveForm" class="grid gap-4">
+            <!--
+              NETLIFY FORMS:
+              - data-netlify="true" enables capture
+              - name="" identifies the form in the dashboard
+              - netlify-honeypot blocks basic spam bots
+              - data-netlify-recaptcha="true" enables spam protection (enable reCAPTCHA in the dashboard)
+            -->
+            <form name="egg-reservations"
+                  method="POST"
+                  action="/thanks.html"
+                  data-netlify="true"
+                  netlify-honeypot="bot-field"
+                  data-netlify-recaptcha="true"
+                  class="grid gap-4">
+
+              <!-- Required hidden input for Netlify -->
+              <input type="hidden" name="form-name" value="egg-reservations" />
+
+              <!-- Honeypot field (hidden) -->
+              <p class="hidden">
+                <label>Don’t fill this out: <input name="bot-field" /></label>
+              </p>
+
               <div class="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label class="label" for="name">Name</label>
-                  <input class="field" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" />
+                  <input class="field" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
                 </div>
                 <div>
                   <label class="label" for="email">Email</label>
-                  <input class="field" id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" />
+                  <input class="field" id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
                 </div>
               </div>
 
               <div class="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label class="label" for="quantity">Quantity</label>
-                  <select class="field" id="quantity" name="quantity">
+                  <select class="field" id="quantity" name="quantity" required>
                     <option value="1 dozen">1 dozen</option>
                     <option value="2 dozen" selected>2 dozen</option>
                     <option value="Flat (2.5 dozen)">Flat (2.5 dozen)</option>
@@ -502,7 +488,7 @@
                 </div>
                 <div>
                   <label class="label" for="pickup">Preferred pickup day</label>
-                  <select class="field" id="pickup" name="pickup">
+                  <select class="field" id="pickup" name="pickup" required>
                     <option value="Friday">Friday</option>
                     <option value="Saturday" selected>Saturday</option>
                     <option value="Sunday">Sunday</option>
@@ -512,26 +498,31 @@
               </div>
 
               <div>
+                <label class="label" for="other_quantity">If “Other”, specify (optional)</label>
+                <input class="field" id="other_quantity" name="other_quantity" type="text" placeholder="e.g., 3 dozen" />
+              </div>
+
+              <div>
                 <label class="label" for="notes">Notes (optional)</label>
-                <textarea class="field" id="notes" name="notes" rows="4" placeholder="Anything we should know? (e.g., 'Please confirm the newest eggs' or 'I'd like a weekly reserve')"></textarea>
+                <textarea class="field" id="notes" name="notes" rows="4" placeholder="Anything we should know? (e.g., 'weekly reserve', 'newest eggs')"></textarea>
               </div>
 
-              <div class="grid sm:grid-cols-2 gap-3">
-                <button type="submit" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
-                        style="background: var(--brand); color: white;">
-                  Prepare email
-                </button>
-                <a id="mailtoFallback" href="mailto:hello@abileneoaks.com?subject=Egg%20Reservation"
-                   class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
-                   style="background: rgba(47,107,79,.08); color: var(--brand); border: 1px solid rgba(47,107,79,.25);">
-                  Email directly
-                </a>
-              </div>
+              <!-- reCAPTCHA placeholder (Netlify will render it) -->
+              <div data-netlify-recaptcha="true"></div>
 
-              <p id="formHint" class="text-xs" style="color: rgba(106,98,91,.95);">
-                When you click “Prepare email,” your email app will open with a pre-filled message to send.
+              <button type="submit" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+                      style="background: var(--brand); color: white;">
+                Submit reservation
+              </button>
+
+              <p class="text-xs" style="color: rgba(106,98,91,.95);">
+                You’ll be redirected to a confirmation page after submitting.
               </p>
             </form>
+
+            <div class="mt-5 text-xs" style="color: rgba(106,98,91,.92);">
+              Tip: In Netlify/Nellify, enable reCAPTCHA for Forms to activate the spam protection.
+            </div>
           </div>
         </div>
       </div>
@@ -554,65 +545,6 @@
   </div>
 
   <script>
-    // Form -> opens a mailto with a nicely formatted body (static site friendly)
-    (function () {
-      const form = document.getElementById('reserveForm');
-      const fallback = document.getElementById('mailtoFallback');
-
-      function buildMailto(values) {
-        const subject = "Egg Reservation";
-        const lines = [
-          `Hi Abilene Oaks Farm,`,
-          ``,
-          `I'd like to reserve: ${values.quantity || "____"}`,
-          `Preferred pickup day: ${values.pickup || "____"}`,
-          ``,
-          `Name: ${values.name || "____"}`,
-          `Email: ${values.email || "____"}`,
-        ];
-
-        if (values.notes && values.notes.trim().length > 0) {
-          lines.push(``, `Notes: ${values.notes.trim()}`);
-        }
-
-        lines.push(``, `Thank you!`);
-
-        const body = encodeURIComponent(lines.join('\n'));
-        return `mailto:hello@abileneoaks.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-      }
-
-      function readValues() {
-        return {
-          name: document.getElementById('name').value,
-          email: document.getElementById('email').value,
-          quantity: document.getElementById('quantity').value,
-          pickup: document.getElementById('pickup').value,
-          notes: document.getElementById('notes').value,
-        };
-      }
-
-      if (form) {
-        form.addEventListener('submit', function (e) {
-          e.preventDefault();
-          const values = readValues();
-          const mailto = buildMailto(values);
-          window.location.href = mailto;
-        });
-
-        // Keep fallback mailto up to date
-        const updateFallback = () => {
-          const values = readValues();
-          fallback.href = buildMailto(values);
-        };
-        ['name','email','quantity','pickup','notes'].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.addEventListener('input', updateFallback);
-          if (el) el.addEventListener('change', updateFallback);
-        });
-        updateFallback();
-      }
-    })();
-
     // Element SDK (kept)
     const defaultConfig = {
       farm_name: "Abilene Oaks Farm",

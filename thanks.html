@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reservation Received • Abilene Oaks Farm</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#FBF7F2; --ink:#2E2A26; --muted:#6A625B; --brand:#2F6B4F; --brand2:#B07A3F;
+      --ring: rgba(47,107,79,.28);
+    }
+    .font-heading{ font-family:"Playfair Display",serif; }
+    .font-body{ font-family:"Lora",serif; }
+    .focus-ring:focus-visible{ outline:none; box-shadow:0 0 0 4px var(--ring); }
+  </style>
+</head>
+<body class="min-h-screen font-body" style="background: var(--bg); color: var(--ink);">
+  <main class="min-h-screen flex items-center justify-center px-6 py-16">
+    <div class="max-w-xl w-full bg-white rounded-2xl p-10 shadow-lg border" style="border-color: rgba(176,122,63,.18);">
+      <p class="text-sm font-semibold uppercase tracking-wide" style="color: var(--brand);">Thank you</p>
+      <h1 class="font-heading text-3xl md:text-4xl font-bold mt-2" style="color: var(--brand2);">Reservation received</h1>
+      <p class="mt-4 text-lg" style="color: var(--muted);">
+        We’ve received your request. We’ll follow up by email to confirm availability and pickup details.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-3">
+        <a href="/" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+           style="background: var(--brand); color: white;">
+          Back to home
+        </a>
+        <a href="https://www.facebook.com/p/Abilene-Oaks-Farm-61577269757024/" target="_blank" rel="noopener noreferrer"
+           class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+           style="background: transparent; color: var(--brand); border: 2px solid rgba(47,107,79,.35);">
+          Follow on Facebook
+        </a>
+      </div>
+
+      <p class="mt-6 text-sm" style="color: var(--muted);">
+        If you don’t hear back within 24–48 hours, email <a class="underline" href="mailto:hello@abileneoaks.com">hello@abileneoaks.com</a>.
+      </p>
+    </div>
+  </main>
+</body>
+</html>
