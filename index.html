@@ -87,7 +87,15 @@
     .label { font-size: .9rem; font-weight: 600; color: var(--ink); }
     .help { font-size: .85rem; color: var(--muted); }
 
-    html { scroll-behavior: smooth; }
+    
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 96px; /* offset for sticky header */
+    }
+    section, header, footer, [id] {
+      scroll-margin-top: 96px;
+    }
+
   </style>
 
   <style>@view-transition { navigation: auto; }</style>
@@ -459,14 +467,13 @@
               - data-netlify="true" enables capture
               - name="" identifies the form in the dashboard
               - netlify-honeypot blocks basic spam bots
-              - data-netlify-recaptcha="true" enables spam protection (enable reCAPTCHA in the dashboard)
+              - enables spam protection (enable reCAPTCHA in the dashboard)
             -->
             <form name="egg-reservations"
                   method="POST"
+                  action="/?submitted=egg-reservations#reserve"
                   data-netlify="true"
-                  netlify-honeypot="bot-field"
-                  data-netlify-recaptcha="true"
-                  class="grid gap-4">
+                  netlify-honeypot="bot-field" class="grid gap-4">
 
               <!-- Required hidden input for Netlify -->
               <input type="hidden" name="form-name" value="egg-reservations" />
@@ -520,7 +527,7 @@
               </div>
 
               <!-- reCAPTCHA placeholder (Netlify will render it) -->
-              <div data-netlify-recaptcha="true"></div>
+              <div ></div>
 
               <button type="submit" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
                       style="background: var(--brand); color: white;">
@@ -661,71 +668,29 @@
   </script>
 
   <script>
-    // Inline Netlify Forms submission (no redirect)
-    // This keeps Netlify form capture while showing an inline success message.
+    // Inline thank-you message after Netlify redirects back to this page
     (function () {
-      const form = document.querySelector('form[name="egg-reservations"]');
-      if (!form) return;
+      const params = new URLSearchParams(window.location.search);
+      const submitted = params.get('submitted');
 
       const statusEl = document.getElementById('formStatus');
       const errorEl = document.getElementById('formError');
 
-      function show(el) { if (el) el.classList.remove('hidden'); }
-      function hide(el) { if (el) el.classList.add('hidden'); }
+      if (submitted === 'egg-reservations' && statusEl) {
+        if (errorEl) errorEl.classList.add('hidden');
+        statusEl.classList.remove('hidden');
 
-      form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        hide(statusEl);
-        hide(errorEl);
-
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn ? submitBtn.textContent : null;
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = 'Submitting...';
-        }
-
-        try {
-          const formData = new FormData(form);
-
-          // Netlify expects URL-encoded payload
-          const params = new URLSearchParams();
-          for (const [key, value] of formData.entries()) {
-            params.append(key, value.toString());
-          }
-
-          const resp = await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: params.toString()
-          });
-
-          if (!resp.ok) throw new Error('Non-200 response');
-
-          // Success UI
-          show(statusEl);
-          form.reset();
-
-          // Conversion tracking event (GA4)
-          // View weekly counts in GA4: Reports → Engagement → Events (filter egg_reservation_submit)
-          // or Explore for weekly trends.
-          if (typeof window.gtag === 'function') {
-            window.gtag('event', 'egg_reservation_submit', {
-              event_category: 'forms',
-              event_label: 'egg-reservations'
-            });
-          }
-
-        } catch (err) {
-          show(errorEl);
-        } finally {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText || 'Submit reservation';
-          }
-        }
-      });
+        // Clean up URL so refresh doesn't re-show the message
+        setTimeout(() => {
+          try {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('submitted');
+            window.history.replaceState({}, document.title, url.pathname + url.hash);
+          } catch (e) {}
+        }, 900);
+      }
     })();
   </script>
+
 </body>
 </html>
