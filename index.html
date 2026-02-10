@@ -1,769 +1,709 @@
 <!doctype html>
 <html lang="en" class="h-full">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abilene Oaks Farm</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abilene Oaks Farm</title>
 
-    <!-- Optional: Favicon (using the same logo) -->
-    <link rel="icon" type="image/png" href="AOLogo.png" />
+  <link rel="icon" type="image/png" href="AOLogo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Lora:wght@400;500&amp;display=swap"
-      rel="stylesheet"
-    />
+  <style>
+    :root{
+      /* Branded palette */
+      --bg: #FBF7F2;         /* warm parchment */
+      --surface: #FFFFFF;    /* cards */
+      --ink: #2E2A26;        /* near-black */
+      --muted: #6A625B;      /* warm gray */
+      --brand: #2F6B4F;      /* evergreen */
+      --brand-2: #B07A3F;    /* oak */
+      --brand-3: #E7D3B6;    /* wheat */
+      --ring: rgba(47,107,79,.28);
+      --border: rgba(176,122,63,0.18);
+      --border-strong: rgba(47,107,79,.35);
+    }
+    body { box-sizing: border-box; }
+    .font-heading { font-family: "Playfair Display", serif; }
+    .font-body { font-family: "Lora", serif; }
 
-    <style>
-      body {
-        box-sizing: border-box;
-      }
-      .font-heading {
-        font-family: "Playfair Display", serif;
-      }
-      .font-body {
-        font-family: "Lora", serif;
-      }
+    /* Hero background photo with subtle overlay */
+    .hero-photo {
+      background-image:
+        linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.42)),
+        url("ChickensBGImage.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
 
-      /* Existing decorative background (kept, but no longer used on the hero) */
-      .hero-pattern {
-        background-image: radial-gradient(
-            circle at 20% 50%,
-            rgba(139, 90, 43, 0.1) 0%,
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at 80% 20%,
-            rgba(34, 87, 60, 0.08) 0%,
-            transparent 40%
-          ),
-          radial-gradient(
-            circle at 60% 80%,
-            rgba(139, 90, 43, 0.06) 0%,
-            transparent 40%
-          );
-      }
+    .soft-shadow { box-shadow: 0 18px 40px rgba(0,0,0,.12); }
+    .card-hover { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,.10); border-color: rgba(176,122,63,.35); }
 
-      /* NEW: Header/Hero background image */
-      .hero-photo {
-        background-image:
-          linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-          url("ChickensBGImage.png");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-      }
+    .focus-ring:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); }
+    img.logo-img { image-rendering: -webkit-optimize-contrast; transform: translateZ(0); }
 
-      .egg-float {
-        animation: float 6s ease-in-out infinite;
-      }
-      .egg-float-delay {
-        animation: float 6s ease-in-out infinite;
-        animation-delay: -3s;
-      }
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0px) rotate(-5deg);
-        }
-        50% {
-          transform: translateY(-15px) rotate(5deg);
-        }
-      }
-      .fade-in {
-        animation: fadeIn 0.8s ease-out forwards;
-      }
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .card-hover {
-        transition: all 0.3s ease;
-      }
-      .card-hover:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 20px 40px rgba(139, 90, 43, 0.15);
-      }
+    .logo-badge {
+      background-color: #ffffff;
+      border: 1px solid rgba(176,122,63,0.25);
+    }
+    .footer-logo-badge{
+      width: 44px; height: 44px; border-radius: 9999px;
+      background: #ffffff; display: inline-flex; align-items: center; justify-content: center;
+      overflow: hidden; border: 1px solid rgba(255,255,255,.45);
+    }
 
-      /* Optional: Slightly crisper logo rendering */
-      img.logo-img {
-        image-rendering: -webkit-optimize-contrast;
-        transform: translateZ(0);
-      }
+    /* Small “pill” chips */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .35rem .7rem;
+      border-radius: 9999px;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--brand);
+      background: rgba(47,107,79,.08);
+      border: 1px solid rgba(47,107,79,.22);
+    }
 
-      /* Logo badge now white, with a subtle border so it remains visible */
-      .logo-badge {
-        background-color: #ffffff;
-        border: 1px solid rgba(139, 90, 43, 0.25);
-      }
+    /* FAQ accordion (native details/summary + subtle motion) */
+    details[open] summary .chev { transform: rotate(180deg); }
+    summary { list-style: none; cursor: pointer; }
+    summary::-webkit-details-marker { display:none; }
+    .chev { transition: transform .2s ease; }
 
-      /* NEW: Footer logo circle (white circle behind the logo) */
-      .footer-logo-badge {
-        width: 44px;
-        height: 44px;
-        border-radius: 9999px;
-        background: #ffffff;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.45);
-      }
-    </style>
+    /* Form inputs */
+    .field {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid rgba(176,122,63,0.22);
+      background: white;
+      padding: .8rem .95rem;
+      font-size: 1rem;
+      color: var(--ink);
+    }
+    .field:focus { outline: none; box-shadow: 0 0 0 4px var(--ring); border-color: rgba(47,107,79,.4); }
+    .label { font-size: .9rem; font-weight: 600; color: var(--ink); }
+    .help { font-size: .85rem; color: var(--muted); }
 
-    <style>
-      @view-transition {
-        navigation: auto;
-      }
-    </style>
+    /* Smooth anchor */
+    html { scroll-behavior: smooth; }
+  </style>
 
-    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  </head>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
 
-  <body class="h-full font-body">
-    <div
-      id="app-wrapper"
-      class="w-full h-full overflow-auto"
-      style="background-color: #fdf8f3"
-    >
-      <!-- Navigation -->
-      <nav
-        class="w-full px-6 py-4 flex justify-between items-center"
-        style="background-color: #fdf8f3"
-      >
-        <div class="flex items-center gap-3">
-          <!-- Logo in circular badge (WHITE background) -->
-          <div
-            class="logo-badge w-12 h-12 rounded-full flex items-center justify-center overflow-hidden"
-          >
-            <img
-              src="AOLogo.png"
-              alt="Abilene Oaks Farm logo"
-              class="logo-img w-10 h-10 object-contain"
-              loading="eager"
-              decoding="async"
-            />
+<body class="h-full font-body" style="background: var(--bg); color: var(--ink);">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background-color: var(--bg);">
+
+    <!-- NAV -->
+    <nav class="w-full px-6 py-4 sticky top-0 z-50 backdrop-blur"
+         style="background-color: rgba(251, 247, 242, 0.86); border-bottom: 1px solid var(--border);">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <a href="#top" class="flex items-center gap-3 focus-ring rounded-lg">
+          <div class="logo-badge w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
+            <img src="AOLogo.png" alt="Abilene Oaks Farm logo" class="logo-img w-10 h-10 object-contain" loading="eager" decoding="async" />
           </div>
+          <span id="nav-title" class="font-heading text-xl font-semibold" style="color: var(--brand-2);">Abilene Oaks Farm</span>
+        </a>
 
-          <span
-            id="nav-title"
-            class="font-heading text-xl font-semibold"
-            style="color: #8b5a2b"
-            >Abilene Oaks Farm</span
-          >
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#about" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">About</a>
+          <a href="#products" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">Eggs</a>
+          <a href="#how" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">How it works</a>
+          <a href="#testimonials" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">Reviews</a>
+          <a href="#faq" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">FAQ</a>
+          <a href="#contact" class="hover:opacity-80 transition-opacity focus-ring rounded-lg px-2 py-1" style="color: var(--muted);">Contact</a>
         </div>
 
-        <div class="hidden md:flex gap-8">
-          <a
-            href="#about"
-            class="font-body transition-colors hover:opacity-70"
-            style="color: #4a4a4a"
-            >About</a
-          >
-          <a
-            href="#products"
-            class="font-body transition-colors hover:opacity-70"
-            style="color: #4a4a4a"
-            >Products</a
-          >
-          <a
-            href="#contact"
-            class="font-body transition-colors hover:opacity-70"
-            style="color: #4a4a4a"
-            >Contact</a
-          >
-        </div>
-      </nav>
+        <a href="#reserve" class="hidden md:inline-flex items-center px-5 py-2.5 rounded-full font-semibold focus-ring"
+           style="background: var(--brand); color: white;">
+          Reserve
+        </a>
+      </div>
+    </nav>
 
-      <!-- Hero / Header Section (NOW uses your uploaded image as background) -->
-      <section class="w-full hero-photo px-6 py-16 md:py-24">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
-          <!-- Added a soft light panel for readability on the photo -->
-          <div class="flex-1 text-center md:text-left fade-in">
-            <div
-              class="inline-block rounded-2xl p-6 md:p-8"
-              style="background-color: rgba(253, 248, 243, 0.88);"
-            >
-              <h1
-                id="hero-title"
-                class="font-heading text-4xl md:text-6xl font-bold leading-tight mb-6"
-                style="color: #8b5a2b"
-              >
+    <!-- HERO -->
+    <header id="top" class="hero-photo">
+      <div class="px-6 py-16 md:py-24">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <div class="inline-block rounded-2xl p-6 md:p-8 soft-shadow"
+                 style="background: rgba(251, 247, 242, 0.92); border: 1px solid var(--border);">
+              <p class="text-sm font-semibold tracking-wide uppercase mb-3" style="color: var(--brand);">
+                Pasture-raised • Local • Small batch
+              </p>
+              <h1 id="hero-title" class="font-heading text-4xl md:text-6xl font-bold leading-tight mb-5" style="color: var(--brand-2);">
                 Abilene Oaks Farm
               </h1>
-              <p
-                id="hero-tagline"
-                class="text-xl md:text-2xl mb-8 leading-relaxed"
-                style="color: #4a4a4a"
-              >
-                Farm-fresh eggs from happy hens, delivered with love from Carrollton,
-                Georgia
+              <p id="hero-tagline" class="text-lg md:text-xl leading-relaxed mb-7" style="color: var(--muted);">
+                Farm-fresh eggs from happy hens — raised with care in Carroll County, Georgia.
               </p>
-              <a
-                href="#contact"
-                class="inline-block px-8 py-4 rounded-full font-semibold text-lg transition-all hover:opacity-90 hover:scale-105"
-                style="background-color: #22573c; color: #fdf8f3"
-              >
-                Get Fresh Eggs 🥚
+              <div class="flex flex-col sm:flex-row gap-3">
+                <a href="#products" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+                   style="background: var(--brand); color: white;">
+                  View egg options
+                </a>
+                <a href="#reserve" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+                   style="background: transparent; color: var(--brand); border: 2px solid rgba(47,107,79,.35);">
+                  Reserve now
+                </a>
+              </div>
+
+              <div class="mt-6 flex flex-wrap gap-2">
+                <span class="chip">Collected often</span>
+                <span class="chip">Pickup available</span>
+                <span class="chip">Quality-focused</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: value cards -->
+          <div class="grid gap-5">
+            <div class="rounded-2xl p-6 soft-shadow" style="background: rgba(255,255,255,0.92); border: 1px solid var(--border);">
+              <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--brand-2);">What makes our eggs different</h3>
+              <ul class="space-y-2 text-base" style="color: var(--muted);">
+                <li>• Hens forage outdoors with shade from oaks</li>
+                <li>• Clean, simple feed and fresh water</li>
+                <li>• Small-batch care — consistent quality</li>
+              </ul>
+            </div>
+            <div class="rounded-2xl p-6 soft-shadow" style="background: rgba(255,255,255,0.92); border: 1px solid var(--border);">
+              <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--brand-2);">Weekly availability</h3>
+              <p class="text-base" style="color: var(--muted);">
+                Reserve ahead to secure your preferred quantity. We’ll confirm pickup details by email.
+              </p>
+              <a href="#reserve" class="inline-flex mt-4 px-6 py-2.5 rounded-full font-semibold focus-ring"
+                 style="background: var(--brand); color: white;">
+                Reserve eggs
               </a>
             </div>
           </div>
-
-          <div class="flex-1 relative flex justify-center">
-            <div class="relative w-72 h-72 md:w-96 md:h-96">
-              <!-- Decorative eggs -->
-              <div class="absolute top-4 left-8 egg-float">
-                <svg width="80" height="100" viewBox="0 0 80 100" fill="none">
-                  <ellipse
-                    cx="40"
-                    cy="55"
-                    rx="35"
-                    ry="45"
-                    fill="#F5E6D3"
-                    stroke="#8B5A2B"
-                    stroke-width="2"
-                  />
-                  <ellipse
-                    cx="40"
-                    cy="50"
-                    rx="25"
-                    ry="35"
-                    fill="#FDFAF6"
-                    opacity="0.6"
-                  />
-                </svg>
-              </div>
-
-              <div class="absolute top-20 right-4 egg-float-delay">
-                <svg width="70" height="90" viewBox="0 0 70 90" fill="none">
-                  <ellipse
-                    cx="35"
-                    cy="50"
-                    rx="30"
-                    ry="40"
-                    fill="#E8DDD0"
-                    stroke="#8B5A2B"
-                    stroke-width="2"
-                  />
-                  <ellipse
-                    cx="35"
-                    cy="45"
-                    rx="20"
-                    ry="30"
-                    fill="#FDFAF6"
-                    opacity="0.6"
-                  />
-                </svg>
-              </div>
-
-              <div
-                class="absolute bottom-8 left-16 egg-float"
-                style="animation-delay: -1.5s"
-              >
-                <svg width="90" height="110" viewBox="0 0 90 110" fill="none">
-                  <ellipse
-                    cx="45"
-                    cy="60"
-                    rx="40"
-                    ry="50"
-                    fill="#D4C4B0"
-                    stroke="#8B5A2B"
-                    stroke-width="2"
-                  />
-                  <ellipse
-                    cx="45"
-                    cy="55"
-                    rx="28"
-                    ry="38"
-                    fill="#FDFAF6"
-                    opacity="0.6"
-                  />
-                </svg>
-              </div>
-
-              <!-- Nest decoration -->
-              <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-                <svg width="200" height="60" viewBox="0 0 200 60" fill="none">
-                  <path
-                    d="M10 30 Q50 50, 100 45 Q150 40, 190 30"
-                    stroke="#8B5A2B"
-                    stroke-width="4"
-                    fill="none"
-                  />
-                  <path
-                    d="M20 35 Q60 55, 100 50 Q140 45, 180 35"
-                    stroke="#A67C52"
-                    stroke-width="3"
-                    fill="none"
-                  />
-                  <path
-                    d="M30 40 Q70 58, 100 53 Q130 48, 170 40"
-                    stroke="#C4A77D"
-                    stroke-width="2"
-                    fill="none"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
+    </header>
 
-      <!-- About Section -->
-      <section id="about" class="w-full px-6 py-16" style="background-color: #22573c">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2
-            id="about-title"
-            class="font-heading text-3xl md:text-4xl font-bold mb-8"
-            style="color: #fdf8f3"
-          >
+    <!-- ABOUT -->
+    <section id="about" class="px-6 py-16">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 id="about-title" class="font-heading text-3xl md:text-4xl font-bold mb-4" style="color: var(--brand-2);">
             Our Story
           </h2>
-
-          <p
-            id="about-text"
-            class="text-lg md:text-xl leading-relaxed mb-8"
-            style="color: #e8ddd0"
-          >
-            Nestled in the rolling hills of Carrollton, Georgia, Abilene Oaks Farm is a
-            family-owned operation dedicated to raising happy, healthy hens the
-            old-fashioned way. Our chickens roam freely under the shade of beautiful
-            oak trees, foraging on fresh grass and enjoying the Georgia sunshine. The
-            result? Eggs with vibrant golden yolks, rich flavor, and the wholesome
-            goodness that only comes from truly pasture-raised hens.
+          <p id="about-text" class="text-lg leading-relaxed" style="color: var(--muted);">
+            Nestled in the rolling hills of Carroll County, Georgia, Abilene Oaks Farm is a family-owned operation dedicated to raising healthy hens the old-fashioned way.
+            Our chickens spend their days outdoors, foraging on grass and enjoying the sunshine — resulting in eggs with rich flavor and vibrant yolks.
           </p>
+        </div>
 
-          <div class="flex justify-center gap-8 flex-wrap">
-            <div class="flex flex-col items-center">
-              <span class="text-4xl mb-2">🌳</span>
-              <span class="font-semibold" style="color: #fdf8f3">Free Range</span>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Care</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Pasture-first</div>
+            <p style="color: var(--muted);">Outdoor access and space to roam, with natural shade and fresh air.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Freshness</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Collected often</div>
+            <p style="color: var(--muted);">Gathered regularly and handled with care for peak quality.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Local</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Carroll County</div>
+            <p style="color: var(--muted);">A small farm focused on our community and neighbors.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Taste</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Golden yolks</div>
+            <p style="color: var(--muted);">A richer flavor you can see and taste in every egg.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="px-6 py-16" style="background: rgba(231,211,182,.22); border-top: 1px solid rgba(176,122,63,0.14); border-bottom: 1px solid rgba(176,122,63,0.14);">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
+          <div>
+            <h2 id="products-title" class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">
+              Egg Options
+            </h2>
+            <p class="mt-2 text-lg" style="color: var(--muted);">Simple pricing. Reserve ahead for the best availability.</p>
+          </div>
+          <a href="#reserve" class="inline-flex px-6 py-3 rounded-full font-semibold focus-ring" style="background: var(--brand); color: white;">
+            Reserve eggs
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl p-7 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Starter</div>
+            <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">One dozen</h3>
+            <p class="mb-5" style="color: var(--muted);">Perfect for small households or first-time customers.</p>
+            <div class="font-heading text-3xl font-bold" style="color: var(--brand);">$6</div>
+            <div class="mt-5">
+              <a href="#reserve" class="inline-flex w-full justify-center px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: rgba(47,107,79,.08); color: var(--brand); border: 1px solid rgba(47,107,79,.25);">
+                Reserve
+              </a>
             </div>
+          </div>
 
-            <div class="flex flex-col items-center">
-              <span class="text-4xl mb-2">❤️</span>
-              <span class="font-semibold" style="color: #fdf8f3">Family Owned</span>
+          <div class="rounded-2xl p-7 card-hover relative soft-shadow" style="background: var(--surface); border: 2px solid var(--border-strong);">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-semibold tracking-wide"
+                 style="background: var(--brand); color: white;">
+              Most popular
             </div>
-
-            <div class="flex flex-col items-center">
-              <span class="text-4xl mb-2">🍳</span>
-              <span class="font-semibold" style="color: #fdf8f3">Farm Fresh</span>
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Value</div>
+            <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Two dozen</h3>
+            <p class="mb-5" style="color: var(--muted);">Best fit for regular egg lovers and families.</p>
+            <div class="font-heading text-3xl font-bold" style="color: var(--brand);">$11</div>
+            <div class="mt-5">
+              <a href="#reserve" class="inline-flex w-full justify-center px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: var(--brand); color: white;">
+                Reserve
+              </a>
             </div>
+          </div>
 
-            <div class="flex flex-col items-center">
-              <span class="text-4xl mb-2">⭐</span>
-              <span class="font-semibold" style="color: #fdf8f3"
-                >Quality Guaranteed</span
-              >
+          <div class="rounded-2xl p-7 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: var(--brand);">Best value</div>
+            <h3 class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Flat (2.5 dozen)</h3>
+            <p class="mb-5" style="color: var(--muted);">Ideal for bakers, meal prep, and larger households.</p>
+            <div class="font-heading text-3xl font-bold" style="color: var(--brand);">$13</div>
+            <div class="mt-5">
+              <a href="#reserve" class="inline-flex w-full justify-center px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: rgba(47,107,79,.08); color: var(--brand); border: 1px solid rgba(47,107,79,.25);">
+                Reserve
+              </a>
             </div>
           </div>
         </div>
-      </section>
 
-      <!-- Products Section -->
-      <section id="products" class="w-full px-6 py-16" style="background-color: #fdf8f3">
-        <div class="max-w-6xl mx-auto">
-          <h2
-            id="products-title"
-            class="font-heading text-3xl md:text-4xl font-bold text-center mb-12"
-            style="color: #8b5a2b"
-          >
-            Our Fresh Eggs
-          </h2>
-
-          <div class="grid md:grid-cols-3 gap-8">
-            <!-- Product Card 1 -->
-            <div
-              class="card-hover rounded-2xl p-8 text-center"
-              style="background-color: #ffffff; border: 2px solid #e8ddd0"
-            >
-              <div
-                class="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center"
-                style="background-color: #f5e6d3"
-              >
-                <span class="text-5xl">🥚</span>
-              </div>
-              <h3 class="font-heading text-xl font-semibold mb-3" style="color: #8b5a2b">
-                One Dozen
-              </h3>
-              <p class="mb-4" style="color: #4a4a4a">
-                Perfect for small families or trying us out
-              </p>
-              <p class="font-heading text-2xl font-bold" style="color: #22573c">$6.00</p>
+        <div class="mt-10 rounded-2xl p-6 md:p-7" style="background: rgba(255,255,255,.7); border: 1px solid rgba(176,122,63,0.16);">
+          <div class="grid md:grid-cols-3 gap-6 items-center">
+            <div class="md:col-span-2">
+              <div class="font-heading text-2xl font-semibold" style="color: var(--ink);">Want a recurring weekly reserve?</div>
+              <p class="mt-1" style="color: var(--muted);">Tell us your usual quantity and preferred pickup day. We’ll do our best to keep it consistent week to week.</p>
             </div>
-
-            <!-- Product Card 2 -->
-            <div
-              class="card-hover rounded-2xl p-8 text-center relative"
-              style="background-color: #ffffff; border: 3px solid #22573c"
-            >
-              <div
-                class="absolute -top-3 left-1/2 transform -translate-x-1/2 px-4 py-1 rounded-full text-sm font-semibold"
-                style="background-color: #22573c; color: #fdf8f3"
-              >
-                Most Popular
-              </div>
-              <div
-                class="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center"
-                style="background-color: #f5e6d3"
-              >
-                <span class="text-5xl">🥚🥚</span>
-              </div>
-              <h3 class="font-heading text-xl font-semibold mb-3" style="color: #8b5a2b">
-                Two Dozen
-              </h3>
-              <p class="mb-4" style="color: #4a4a4a">
-                Great value for regular egg lovers
-              </p>
-              <p class="font-heading text-2xl font-bold" style="color: #22573c">$11.00</p>
-            </div>
-
-            <!-- Product Card 3 -->
-            <div
-              class="card-hover rounded-2xl p-8 text-center"
-              style="background-color: #ffffff; border: 2px solid #e8ddd0"
-            >
-              <div
-                class="w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center"
-                style="background-color: #f5e6d3"
-              >
-                <span class="text-5xl">📦</span>
-              </div>
-              <h3 class="font-heading text-xl font-semibold mb-3" style="color: #8b5a2b">
-                Flat (2.5 Dozen)
-              </h3>
-              <p class="mb-4" style="color: #4a4a4a">
-                Best value for big families &amp; bakers
-              </p>
-              <p class="font-heading text-2xl font-bold" style="color: #22573c">$13.00</p>
+            <div class="md:text-right">
+              <a href="#reserve" class="inline-flex px-6 py-3 rounded-full font-semibold focus-ring" style="background: var(--brand); color: white;">
+                Set up weekly reserve
+              </a>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Why Our Eggs Section -->
-      <section class="w-full px-6 py-16" style="background-color: #f5e6d3">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2
-            class="font-heading text-3xl md:text-4xl font-bold mb-12"
-            style="color: #8b5a2b"
-          >
-            Why Choose Our Eggs?
-          </h2>
+    <!-- HOW IT WORKS -->
+    <section id="how" class="px-6 py-16">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="font-heading text-3xl md:text-4xl font-bold mb-8" style="color: var(--brand-2);">How it works</h2>
 
-          <div class="grid md:grid-cols-2 gap-8">
-            <div class="p-6 rounded-xl" style="background-color: #ffffff">
-              <span class="text-4xl mb-4 block">🌅</span>
-              <h3 class="font-heading text-lg font-semibold mb-2" style="color: #8b5a2b">
-                Collected Daily
-              </h3>
-              <p style="color: #4a4a4a">
-                Fresh eggs gathered every morning for maximum freshness
-              </p>
-            </div>
-
-            <div class="p-6 rounded-xl" style="background-color: #ffffff">
-              <span class="text-4xl mb-4 block">🌾</span>
-              <h3 class="font-heading text-lg font-semibold mb-2" style="color: #8b5a2b">
-                Natural Diet
-              </h3>
-              <p style="color: #4a4a4a">
-                Our hens forage on grass, bugs, and quality feed
-              </p>
-            </div>
-
-            <div class="p-6 rounded-xl" style="background-color: #ffffff">
-              <span class="text-4xl mb-4 block">💛</span>
-              <h3 class="font-heading text-lg font-semibold mb-2" style="color: #8b5a2b">
-                Rich Golden Yolks
-              </h3>
-              <p style="color: #4a4a4a">Vibrant color and superior taste in every egg</p>
-            </div>
-
-            <div class="p-6 rounded-xl" style="background-color: #ffffff">
-              <span class="text-4xl mb-4 block">🤝</span>
-              <h3 class="font-heading text-lg font-semibold mb-2" style="color: #8b5a2b">
-                Local &amp; Personal
-              </h3>
-              <p style="color: #4a4a4a">Know your farmer, know your food</p>
-            </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: rgba(47,107,79,.10); color: var(--brand); font-weight: 700;">1</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Reserve</div>
+            <p style="color: var(--muted);">Send a message with the quantity you want. We’ll confirm availability.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: rgba(47,107,79,.10); color: var(--brand); font-weight: 700;">2</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Pickup</div>
+            <p style="color: var(--muted);">We’ll coordinate a convenient pickup time at the farm.</p>
+          </div>
+          <div class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style="background: rgba(47,107,79,.10); color: var(--brand); font-weight: 700;">3</div>
+            <div class="font-heading text-xl font-semibold mb-2" style="color: var(--ink);">Enjoy</div>
+            <p style="color: var(--muted);">Fresh eggs for breakfast, baking, and everything in between.</p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Contact Section -->
-      <section id="contact" class="w-full px-6 py-16" style="background-color: #22573c">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2
-            id="contact-title"
-            class="font-heading text-3xl md:text-4xl font-bold mb-8"
-            style="color: #fdf8f3"
-          >
-            Get Your Fresh Eggs
-          </h2>
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="px-6 py-16" style="background: rgba(231,211,182,.14); border-top: 1px solid rgba(176,122,63,0.12); border-bottom: 1px solid rgba(176,122,63,0.12);">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
+          <div>
+            <h2 class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">From our customers</h2>
+            <p class="mt-2 text-lg" style="color: var(--muted);">A few notes we’ve heard from neighbors and repeat customers.</p>
+          </div>
+          <a href="#reserve" class="inline-flex px-6 py-3 rounded-full font-semibold focus-ring" style="background: var(--brand); color: white;">
+            Reserve eggs
+          </a>
+        </div>
 
-          <div class="rounded-2xl p-8 md:p-12" style="background-color: #fdf8f3">
-            <div class="grid md:grid-cols-2 gap-8 mb-8">
-              <div class="text-center">
-                <span class="text-4xl mb-4 block">📍</span>
-                <h3 class="font-heading text-lg font-semibold mb-2" style="color: #8b5a2b">
-                  Location
-                </h3>
-                <p id="location-text" style="color: #4a4a4a">Carroll County, Georgia</p>
-              </div>
+        <div class="grid md:grid-cols-3 gap-6">
+          <figure class="rounded-2xl p-7 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-3" style="color: var(--brand);">Repeat customer</div>
+            <blockquote class="text-lg leading-relaxed" style="color: var(--ink);">
+              “The yolks are noticeably richer, and the shells feel sturdier. We won’t go back.”
+            </blockquote>
+            <figcaption class="mt-5 text-sm" style="color: var(--muted);">— Local family in Carroll County</figcaption>
+          </figure>
 
-              <div class="text-center">
-                <span class="text-4xl mb-4 block">📧</span>
-                <h3 class="font-heading text-lg font-semibold mb-2" style="color: #8b5a2b">
-                  Email
-                </h3>
-                <a
-                  href="mailto:hello@abileneoaks.com"
-                  style="color: #22573c; text-decoration: none; font-weight: 500"
-                  class="hover:opacity-70 transition-opacity"
-                  >hello@abileneoaks.com</a
-                >
-              </div>
+          <figure class="rounded-2xl p-7 card-hover soft-shadow" style="background: var(--surface); border: 2px solid rgba(47,107,79,.28);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-3" style="color: var(--brand);">Baker’s pick</div>
+            <blockquote class="text-lg leading-relaxed" style="color: var(--ink);">
+              “Perfect for baking — consistent results every time. Easy pickup and friendly folks.”
+            </blockquote>
+            <figcaption class="mt-5 text-sm" style="color: var(--muted);">— Home baker</figcaption>
+          </figure>
+
+          <figure class="rounded-2xl p-7 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <div class="text-sm font-semibold uppercase tracking-wide mb-3" style="color: var(--brand);">Freshness</div>
+            <blockquote class="text-lg leading-relaxed" style="color: var(--ink);">
+              “You can taste the difference. I love knowing exactly where my food comes from.”
+            </blockquote>
+            <figcaption class="mt-5 text-sm" style="color: var(--muted);">— Nearby neighbor</figcaption>
+          </figure>
+        </div>
+
+        <p class="mt-8 text-sm" style="color: var(--muted);">
+          Want to feature a real review? Message us and we’ll add it here.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="px-6 py-16">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-10">
+          <div>
+            <h2 class="font-heading text-3xl md:text-4xl font-bold" style="color: var(--brand-2);">FAQ</h2>
+            <p class="mt-2 text-lg" style="color: var(--muted);">Quick answers to the most common questions.</p>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-6">
+          <details class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <summary class="flex items-center justify-between">
+              <span class="font-heading text-lg font-semibold" style="color: var(--ink);">Where are you located?</span>
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted);" />
+              </svg>
+            </summary>
+            <div class="mt-3" style="color: var(--muted);">
+              We’re in Carroll County, Georgia. Pickup details are shared after you reserve.
             </div>
+          </details>
 
-            <div class="p-6 rounded-xl mb-6" style="background-color: #f5e6d3">
-              <p class="font-semibold mb-2" style="color: #8b5a2b">🚗 Pickup Available</p>
-              <p style="color: #4a4a4a">
-                Contact us to arrange a convenient pickup time at our farm
-              </p>
+          <details class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <summary class="flex items-center justify-between">
+              <span class="font-heading text-lg font-semibold" style="color: var(--ink);">Do I need to reserve ahead?</span>
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted);" />
+              </svg>
+            </summary>
+            <div class="mt-3" style="color: var(--muted);">
+              It’s recommended. We can often help same-week, but reservations guarantee your quantity.
             </div>
+          </details>
 
-            <p class="text-lg mb-6" style="color: #4a4a4a">
-              Reach out via social media or give us a call to place your order. We'd
-              love to share our farm-fresh eggs with your family!
+          <details class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <summary class="flex items-center justify-between">
+              <span class="font-heading text-lg font-semibold" style="color: var(--ink);">How fresh are the eggs?</span>
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted);" />
+              </svg>
+            </summary>
+            <div class="mt-3" style="color: var(--muted);">
+              We collect often and store properly. If you want the very newest, mention it when you reserve.
+            </div>
+          </details>
+
+          <details class="rounded-2xl p-6 card-hover" style="background: var(--surface); border: 1px solid var(--border);">
+            <summary class="flex items-center justify-between">
+              <span class="font-heading text-lg font-semibold" style="color: var(--ink);">Do you offer delivery?</span>
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted);" />
+              </svg>
+            </summary>
+            <div class="mt-3" style="color: var(--muted);">
+              Pickup is the standard option. For special cases, reach out and we’ll see what’s possible.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT + FORM -->
+    <section id="contact" class="px-6 py-16" style="background: var(--brand);">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+          <div>
+            <h2 id="contact-title" class="font-heading text-3xl md:text-4xl font-bold mb-4" style="color: white;">Contact & Reservations</h2>
+            <p class="text-lg leading-relaxed" style="color: rgba(255,255,255,.88);">
+              Reserve eggs or ask about weekly availability. We’ll reply as soon as we can.
             </p>
 
-            <div class="flex justify-center gap-4 flex-wrap">
-              <!-- UPDATED Facebook link -->
-              <a
-                href="https://www.facebook.com/p/Abilene-Oaks-Farm-61577269757024/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-80"
-                style="background-color: #22573c; color: #fdf8f3"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path
-                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
-                  />
-                </svg>
-                Follow on Facebook
-              </a>
+            <div class="mt-8 grid sm:grid-cols-2 gap-6">
+              <div class="rounded-2xl p-6" style="background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);">
+                <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: rgba(255,255,255,.85);">Location</div>
+                <div id="location-text" class="text-base" style="color: white;">Carroll County, Georgia</div>
+              </div>
+              <div class="rounded-2xl p-6" style="background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);">
+                <div class="text-sm font-semibold uppercase tracking-wide mb-2" style="color: rgba(255,255,255,.85);">Email</div>
+                <a href="mailto:hello@abileneoaks.com" class="focus-ring rounded-lg inline-block" style="color: white; font-weight: 600; text-decoration: none;">
+                  hello@abileneoaks.com
+                </a>
+              </div>
+            </div>
 
-              <a
-                href="https://www.instagram.com/abileneoaksfarm/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-80"
-                style="background-color: #22573c; color: #fdf8f3"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <rect
-                    x="2"
-                    y="2"
-                    width="20"
-                    height="20"
-                    rx="5"
-                    ry="5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                  <path
-                    d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" />
-                </svg>
-                Follow on Instagram
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="https://www.facebook.com/p/Abilene-Oaks-Farm-61577269757024/" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: rgba(255,255,255,.14); color: white; border: 1px solid rgba(255,255,255,.22);">
+                Facebook
+              </a>
+              <a href="https://www.instagram.com/abileneoaksfarm/" target="_blank" rel="noopener noreferrer"
+                 class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold focus-ring"
+                 style="background: rgba(255,255,255,.14); color: white; border: 1px solid rgba(255,255,255,.22);">
+                Instagram
               </a>
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- Footer -->
-      <footer class="w-full px-6 py-8 text-center" style="background-color: #8b5a2b">
+          <div id="reserve" class="rounded-2xl p-8 md:p-10 soft-shadow" style="background: rgba(251,247,242,0.96); border: 1px solid rgba(176,122,63,0.18);">
+            <h3 class="font-heading text-2xl font-semibold mb-2" style="color: var(--brand-2);">Reserve eggs</h3>
+            <p class="mb-6" style="color: var(--muted);">This quick form prepares an email for you. No account needed.</p>
+
+            <form id="reserveForm" class="grid gap-4">
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="label" for="name">Name</label>
+                  <input class="field" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" />
+                </div>
+                <div>
+                  <label class="label" for="email">Email</label>
+                  <input class="field" id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" />
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="label" for="quantity">Quantity</label>
+                  <select class="field" id="quantity" name="quantity">
+                    <option value="1 dozen">1 dozen</option>
+                    <option value="2 dozen" selected>2 dozen</option>
+                    <option value="Flat (2.5 dozen)">Flat (2.5 dozen)</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  <p class="help mt-1">Choose an option, or select “Other” and specify below.</p>
+                </div>
+                <div>
+                  <label class="label" for="pickup">Preferred pickup day</label>
+                  <select class="field" id="pickup" name="pickup">
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday" selected>Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                    <option value="Weekday">Weekday</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="label" for="notes">Notes (optional)</label>
+                <textarea class="field" id="notes" name="notes" rows="4" placeholder="Anything we should know? (e.g., 'Please confirm the newest eggs' or 'I'd like a weekly reserve')"></textarea>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-3">
+                <button type="submit" class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+                        style="background: var(--brand); color: white;">
+                  Prepare email
+                </button>
+                <a id="mailtoFallback" href="mailto:hello@abileneoaks.com?subject=Egg%20Reservation"
+                   class="inline-flex justify-center px-7 py-3 rounded-full font-semibold focus-ring"
+                   style="background: rgba(47,107,79,.08); color: var(--brand); border: 1px solid rgba(47,107,79,.25);">
+                  Email directly
+                </a>
+              </div>
+
+              <p id="formHint" class="text-xs" style="color: rgba(106,98,91,.95);">
+                When you click “Prepare email,” your email app will open with a pre-filled message to send.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="px-6 py-10 text-center" style="background: #1F4D38;">
+      <div class="max-w-6xl mx-auto">
         <div class="flex items-center justify-center gap-3 mb-4">
-          <!-- UPDATED: Footer logo now sits on a white circle -->
           <span class="footer-logo-badge" aria-hidden="true">
-            <img
-              src="AOLogo.png"
-              alt="Abilene Oaks Farm logo"
-              class="logo-img w-9 h-9 object-contain"
-              loading="lazy"
-              decoding="async"
-            />
+            <img src="AOLogo.png" alt="Abilene Oaks Farm logo" class="logo-img w-9 h-9 object-contain" loading="lazy" decoding="async" />
           </span>
-
-          <span class="font-heading text-xl font-semibold" style="color: #fdf8f3"
-            >Abilene Oaks Farm</span
-          >
+          <span class="font-heading text-xl font-semibold" style="color: white;">Abilene Oaks Farm</span>
         </div>
-
-        <p id="footer-text" class="text-sm" style="color: #e8ddd0">
-          © 2024 Abilene Oaks Farm • Carroll County, Georgia • Farm Fresh Eggs with Love
-          🥚
+        <p id="footer-text" class="text-sm" style="color: rgba(255,255,255,.78);">
+          © 2024 Abilene Oaks Farm • Carroll County, Georgia • Farm fresh eggs, raised with care
         </p>
-      </footer>
-    </div>
+      </div>
+    </footer>
+  </div>
 
-    <script>
-      const defaultConfig = {
-        farm_name: "Abilene Oaks Farm",
-        tagline:
-          "Farm-fresh eggs from happy hens, delivered with love from Carroll County, Georgia",
-        about_title: "Our Story",
-        about_text:
-          "Nestled in the rolling hills of Carroll County, Georgia, Abilene Oaks Farm is a family-owned operation dedicated to raising happy, healthy hens the old-fashioned way. Our chickens roam freely under the shade of beautiful oak trees, foraging on fresh grass and enjoying the Georgia sunshine. The result? Eggs with vibrant golden yolks, rich flavor, and the wholesome goodness that only comes from truly farm-fresh hens.",
-        products_title: "Our Fresh Eggs",
-        contact_title: "Get Your Fresh Eggs",
-        location_text: "Carroll County, Georgia",
-        footer_text:
-          "© 2026 Abilene Oaks Farm • Carroll County, Georgia • Farm Fresh Eggs with Love 🥚",
-        background_color: "#FDF8F3",
-        primary_color: "#22573C",
-        accent_color: "#8B5A2B",
-        text_color: "#4A4A4A",
-        surface_color: "#F5E6D3",
-        font_family: "Playfair Display",
-        font_size: 16,
-      };
+  <script>
+    // Form -> opens a mailto with a nicely formatted body (static site friendly)
+    (function () {
+      const form = document.getElementById('reserveForm');
+      const fallback = document.getElementById('mailtoFallback');
 
-      async function onConfigChange(config) {
-        // Update text content
-        document.getElementById("nav-title").textContent =
-          config.farm_name || defaultConfig.farm_name;
-        document.getElementById("hero-title").textContent =
-          config.farm_name || defaultConfig.farm_name;
-        document.getElementById("hero-tagline").textContent =
-          config.tagline || defaultConfig.tagline;
-        document.getElementById("about-title").textContent =
-          config.about_title || defaultConfig.about_title;
-        document.getElementById("about-text").textContent =
-          config.about_text || defaultConfig.about_text;
-        document.getElementById("products-title").textContent =
-          config.products_title || defaultConfig.products_title;
-        document.getElementById("contact-title").textContent =
-          config.contact_title || defaultConfig.contact_title;
-        document.getElementById("location-text").textContent =
-          config.location_text || defaultConfig.location_text;
-        document.getElementById("footer-text").textContent =
-          config.footer_text || defaultConfig.footer_text;
+      function buildMailto(values) {
+        const subject = "Egg Reservation";
+        const lines = [
+          `Hi Abilene Oaks Farm,`,
+          ``,
+          `I'd like to reserve: ${values.quantity || "____"}`,
+          `Preferred pickup day: ${values.pickup || "____"}`,
+          ``,
+          `Name: ${values.name || "____"}`,
+          `Email: ${values.email || "____"}`,
+        ];
 
-        // Update colors
-        const bgColor = config.background_color || defaultConfig.background_color;
+        if (values.notes && values.notes.trim().length > 0) {
+          lines.push(``, `Notes: ${values.notes.trim()}`);
+        }
 
-        document.getElementById("app-wrapper").style.backgroundColor = bgColor;
-        document.querySelector("nav").style.backgroundColor = bgColor;
+        lines.push(``, `Thank you!`);
 
-        // Update fonts
-        const fontFamily = config.font_family || defaultConfig.font_family;
-        const baseFontStack = "serif";
-        document.querySelectorAll(".font-heading").forEach((el) => {
-          el.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
-        });
-
-        // Update font sizes
-        const baseSize = config.font_size || defaultConfig.font_size;
-        document.getElementById("hero-title").style.fontSize = `${baseSize * 3}px`;
-        document.getElementById("hero-tagline").style.fontSize = `${baseSize * 1.35}px`;
+        const body = encodeURIComponent(lines.join('\n'));
+        return `mailto:hello@abileneoaks.com?subject=${encodeURIComponent(subject)}&body=${body}`;
       }
 
-      function mapToCapabilities(config) {
+      function readValues() {
         return {
-          recolorables: [
-            {
-              get: () => config.background_color || defaultConfig.background_color,
-              set: (value) => {
-                config.background_color = value;
-                window.elementSdk.setConfig({ background_color: value });
-              },
-            },
-            {
-              get: () => config.surface_color || defaultConfig.surface_color,
-              set: (value) => {
-                config.surface_color = value;
-                window.elementSdk.setConfig({ surface_color: value });
-              },
-            },
-            {
-              get: () => config.text_color || defaultConfig.text_color,
-              set: (value) => {
-                config.text_color = value;
-                window.elementSdk.setConfig({ text_color: value });
-              },
-            },
-            {
-              get: () => config.primary_color || defaultConfig.primary_color,
-              set: (value) => {
-                config.primary_color = value;
-                window.elementSdk.setConfig({ primary_color: value });
-              },
-            },
-            {
-              get: () => config.accent_color || defaultConfig.accent_color,
-              set: (value) => {
-                config.accent_color = value;
-                window.elementSdk.setConfig({ accent_color: value });
-              },
-            },
-          ],
-          borderables: [],
-          fontEditable: {
-            get: () => config.font_family || defaultConfig.font_family,
-            set: (value) => {
-              config.font_family = value;
-              window.elementSdk.setConfig({ font_family: value });
-            },
-          },
-          fontSizeable: {
-            get: () => config.font_size || defaultConfig.font_size,
-            set: (value) => {
-              config.font_size = value;
-              window.elementSdk.setConfig({ font_size: value });
-            },
-          },
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          quantity: document.getElementById('quantity').value,
+          pickup: document.getElementById('pickup').value,
+          notes: document.getElementById('notes').value,
         };
       }
 
-      function mapToEditPanelValues(config) {
-        return new Map([
-          ["farm_name", config.farm_name || defaultConfig.farm_name],
-          ["tagline", config.tagline || defaultConfig.tagline],
-          ["about_title", config.about_title || defaultConfig.about_title],
-          ["about_text", config.about_text || defaultConfig.about_text],
-          ["products_title", config.products_title || defaultConfig.products_title],
-          ["contact_title", config.contact_title || defaultConfig.contact_title],
-          ["location_text", config.location_text || defaultConfig.location_text],
-          ["footer_text", config.footer_text || defaultConfig.footer_text],
-        ]);
-      }
-
-      if (window.elementSdk) {
-        window.elementSdk.init({
-          defaultConfig,
-          onConfigChange,
-          mapToCapabilities,
-          mapToEditPanelValues,
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const values = readValues();
+          const mailto = buildMailto(values);
+          window.location.href = mailto;
         });
+
+        // Keep fallback mailto up to date
+        const updateFallback = () => {
+          const values = readValues();
+          fallback.href = buildMailto(values);
+        };
+        ['name','email','quantity','pickup','notes'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener('input', updateFallback);
+          if (el) el.addEventListener('change', updateFallback);
+        });
+        updateFallback();
       }
-    </script>
-  </body>
+    })();
+
+    // Element SDK (kept)
+    const defaultConfig = {
+      farm_name: "Abilene Oaks Farm",
+      tagline: "Farm-fresh eggs from happy hens — raised with care in Carroll County, Georgia.",
+      about_title: "Our Story",
+      about_text:
+        "Nestled in the rolling hills of Carroll County, Georgia, Abilene Oaks Farm is a family-owned operation dedicated to raising healthy hens the old-fashioned way. Our chickens spend their days outdoors, foraging on grass and enjoying the sunshine — resulting in eggs with rich flavor and vibrant yolks.",
+      products_title: "Egg Options",
+      contact_title: "Contact & Reservations",
+      location_text: "Carroll County, Georgia",
+      footer_text: "© 2024 Abilene Oaks Farm • Carroll County, Georgia • Farm fresh eggs, raised with care",
+      background_color: "#FBF7F2",
+      primary_color: "#2F6B4F",
+      accent_color: "#B07A3F",
+      text_color: "#2E2A26",
+      surface_color: "#FFFFFF",
+      font_family: "Playfair Display",
+      font_size: 16,
+    };
+
+    async function onConfigChange(config) {
+      document.getElementById("nav-title").textContent = config.farm_name || defaultConfig.farm_name;
+      document.getElementById("hero-title").textContent = config.farm_name || defaultConfig.farm_name;
+      document.getElementById("hero-tagline").textContent = config.tagline || defaultConfig.tagline;
+
+      document.getElementById("about-title").textContent = config.about_title || defaultConfig.about_title;
+      document.getElementById("about-text").textContent = config.about_text || defaultConfig.about_text;
+
+      document.getElementById("products-title").textContent = config.products_title || defaultConfig.products_title;
+
+      document.getElementById("contact-title").textContent = config.contact_title || defaultConfig.contact_title;
+      document.getElementById("location-text").textContent = config.location_text || defaultConfig.location_text;
+
+      document.getElementById("footer-text").textContent = config.footer_text || defaultConfig.footer_text;
+
+      const bgColor = config.background_color || defaultConfig.background_color;
+      document.getElementById("app-wrapper").style.backgroundColor = bgColor;
+
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      const baseFontStack = "serif";
+      document.querySelectorAll(".font-heading").forEach((el) => {
+        el.style.fontFamily = `${fontFamily}, ${baseFontStack}`;
+      });
+
+      const baseSize = config.font_size || defaultConfig.font_size;
+      document.getElementById("hero-title").style.fontSize = `${baseSize * 3}px`;
+      document.getElementById("hero-tagline").style.fontSize = `${baseSize * 1.25}px`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); } },
+          { get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); } },
+          { get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); } },
+          { get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); } },
+          { get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => { config.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); } },
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); },
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); },
+        },
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["farm_name", config.farm_name || defaultConfig.farm_name],
+        ["tagline", config.tagline || defaultConfig.tagline],
+        ["about_title", config.about_title || defaultConfig.about_title],
+        ["about_text", config.about_text || defaultConfig.about_text],
+        ["products_title", config.products_title || defaultConfig.products_title],
+        ["contact_title", config.contact_title || defaultConfig.contact_title],
+        ["location_text", config.location_text || defaultConfig.location_text],
+        ["footer_text", config.footer_text || defaultConfig.footer_text],
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities, mapToEditPanelValues });
+    }
+  </script>
+</body>
 </html>
